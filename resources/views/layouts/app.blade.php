@@ -1,77 +1,36 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Gestion Étudiants</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <style>
-        body {
-            background: #e2e8f9ff;
-        }
-        .sidebar {
-            height: 100vh;
-            width: 230px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background: #2c3e50;
-            padding-top: 60px;
-        }
-        .sidebar a {
-            padding: 25px;
-            display: block;
-            color: #ecf0f1;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .sidebar a:hover {
-            background: #34495e;
-        }
-        .content {
-            margin-left: 250px;
-            padding: 25px;
-        }
-        .navbar-custom {
-            background: #16293eff;
-        }
-        .navbar-brand {
-            color: #fff !important;
-            font-weight: bold;
-        }
-    </style>
-</head>
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100">
+            @include('layouts.navigation')
 
-<body>
+            <!-- Page Heading -->
+            @isset($header)
+                <header class="bg-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+            @endisset
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-custom fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ route('dashboard') }}">
-            🎓 Gestion des Étudiants
-        </a>
-    </div>
-</nav>
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-
-    <a href="{{ route('dashboard') }}">🏠 Dashboard</a>
-    <a href="{{ route('students.index') }}">👨‍🎓 Liste Étudiants</a>
-    <a href="{{ route('students.create') }}">➕ Ajouter Étudiant</a>
-    <a href="{{ route('enseignants.index') }}">👩‍🏫 Liste Enseignant</a>
-    <a href="{{ route('enseignants.create') }}">➕ Ajouter Enseignant</a>
-
-</div>
-
-<!-- CONTENT -->
-<div class="content">
-    @yield('content')
-</div>
-
-</body>
+            <!-- Page Content -->
+            <main>
+                {{ $slot }}
+            </main>
+        </div>
+    </body>
 </html>
