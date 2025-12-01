@@ -11,7 +11,7 @@ class EnseignantController extends Controller
     public function index()
     {
         $enseignants = Enseignant::all(); // récupère tous les enseignants
-        return view('enseignants.create', compact('enseignants')); // <-- corrige ici
+        return view('enseignants.index', compact('enseignants')); // <-- corrige ici
     }
 
     // Formulaire pour ajouter un nouvel enseignant
@@ -26,7 +26,7 @@ class EnseignantController extends Controller
         $request->validate([
             'nom' => 'required|string|max:255',
             'email' => 'required|email|unique:enseignants,email',
-            'phone' => 'nullable|string|max:20',
+            'telephone' => 'nullable|string|max:20',
             'specialite' => 'nullable|string|max:255',
             'action' => 'nullable|string|max:255',
         ]);
@@ -55,7 +55,7 @@ class EnseignantController extends Controller
         $request->validate([
             'nom' => 'required|string|max:255',
             'email' => 'required|email|unique:enseignants,email,' . $enseignant->id,
-            'phone' => 'nullable|string|max:20',
+            'telephone' => 'nullable|string|max:20',
             'specialite' => 'nullable|string|max:255',
             'action' => 'nullable|string|max:255',
         ]);
